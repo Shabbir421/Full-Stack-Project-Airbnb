@@ -3,8 +3,6 @@
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 }
-console.log(process.env.SECRETE);
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -23,14 +21,11 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const mongourl = process.env.ATLASDB_URL;
+const mongourl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 async function main() {
   try {
-    await mongoose.connect(mongourl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(mongourl, {});
     console.log("Connected to MongoDB");
   } catch (err) {
     console.error("Error connecting to MongoDB:", err);
