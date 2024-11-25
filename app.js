@@ -73,7 +73,7 @@ const sessionoption = {
 
 //!root
 app.get("/", (req, res) => {
-  res.send("connected");
+  res.redirect("/listings");
 });
 
 app.use(session(sessionoption));
